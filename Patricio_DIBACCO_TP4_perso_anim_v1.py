@@ -32,18 +32,11 @@ class Perso():
         cmds.polyCube(name=steeringWheelName, w = 3, h = 0.2, d= 0.2)
         cmds.move(2.4,2,0)
         cmds.rotate( 0, 90,0, r=True )
-        # cmds.select( d=True )
-        # cmds.joint(n=bodyJ1, p=(0, 9, 0) )
-        # cmds.joint(n=bodyJ2, p=(0, 8, 0) )
-        # cmds.joint(n=bodyJ3, p=(0, 7, 0) )
-        # cmds.ikHandle( sj=bodyJ1, ee=bodyJ3)
-        # cmds.bindSkin( bodyName, bodyJ1)
     #model frontWheel:
         frontWheel = 'frontWheel' + randomNaming
         frontWheelStick = 'frontWheelStick'+randomNaming
         frontWheelJ = 'frontWheelJ' + randomNaming
-        leftElbowJ = 'leftElbowJ'+randomNaming
-        leftWristJ = 'leftWristJ'+randomNaming
+        handleJ = 'handleJ'+randomNaming
         cmds.polyCylinder(r=1, n=frontWheel)
         cmds.rotate(90,0,0)
         cmds.scale(0.1, y = True)
@@ -51,14 +44,12 @@ class Perso():
         cmds.polyCube(h=2,w=0.4,d=0.3, n= frontWheelStick)
         cmds.move(2.5,1,0)
         cmds.rotate(0,0,45)
-        # cmds.xform(r= True, ro=(0, 0, -45) )
-        # cmds.polySmooth( frontWheel+'.f[0:5]', dv=2 )
-        # cmds.select( d=True )
-        # cmds.joint(n=frontWheelJ, p=(0.5, 9, 0) )
-        # cmds.joint(n=leftElbowJ, p=(1, 8.5, 0) )
-        # cmds.joint(n=leftWristJ, p=(1.5, 8, 0) )
-        # cmds.ikHandle( sj=frontWheelJ, ee=leftWristJ)
-        # cmds.bindSkin( frontWheel, frontWheelJ)
+        cmds.select( d=True )
+        cmds.joint(n=frontWheelJ, p=(3, 0, 0) )
+        cmds.joint(n=handleJ, p=(2.5, 1.6, 0) )
+
+        cmds.ikHandle( sj=frontWheelJ, ee=handleJ)
+        cmds.bindSkin( frontWheel, frontWheelJ)
     #model backWheel:
         backWheel = 'backWheel' + randomNaming
         backWheelStick = 'backWheelStick'+randomNaming
@@ -72,12 +63,6 @@ class Perso():
         cmds.polyCube(h=2,w=0.4,d=0.3, n=backWheelStick)
         cmds.move(-1.8,1,0)
         cmds.rotate(0,0,-45)
-        # cmds.select( d=True )
-        # cmds.joint(n=backWheelJ, p=(-0.5, 9, 0) )
-        # cmds.joint(n=rightElbowJ, p=(-1, 8.5, 0) )
-        # cmds.joint(n=rightWristJ, p=(-1.5, 8, 0) )
-        # cmds.ikHandle( sj=backWheelJ, ee=rightWristJ)
-        # cmds.bindSkin( backWheel, backWheelJ)
     #group everything:
         gp = cmds.group(bodyName, seatName, steeringWheelName, frontWheel, frontWheelStick, backWheel, backWheelStick, n=nombre)
         cmds.select(gp)
